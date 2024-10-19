@@ -1,0 +1,231 @@
+/* Global Styles */
+body {
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #2C2F33;
+  font-family: 'Arial', sans-serif;
+}
+
+.clock-container {
+  background: linear-gradient(145deg, #434857, #2d313a);
+  border-radius: 30px;
+  padding: 30px;
+  box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.5);
+  width: 300px;
+  height: 350px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  border: 4px solid #333;
+}
+
+.clock-face {
+  position: relative;
+  width: 250px;
+  height: 250px;
+  background: radial-gradient(circle, rgba(0,0,0,0.6), rgba(0,0,0,0.8));
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1;  /* La montre est derrière la modale */
+}
+
+.time {
+  font-size: 4rem;
+  color: white;
+  position: relative;
+  z-index: 2;
+  transition: opacity 0.3s ease, filter 0.3s ease;
+}
+
+.dial {
+  position: absolute;
+  width: 220px;
+  height: 220px;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+}
+
+.buttons {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+}
+
+.btn {
+  background: rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 10px 15px;
+  color: white;
+  font-size: 1rem;
+  border-radius: 12px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.menu-btn {
+  background: linear-gradient(145deg, #5A99D3, #3498db);
+}
+
+.btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.5);
+}
+
+span {
+  font-size: 0.8rem;
+  color: #ccc;
+}
+
+
+
+/* Modal Styles */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7); /* Transparent dark background */
+  justify-content: center;
+  align-items: center;
+  z-index: 100;
+}
+
+.modal-content {
+  background: #333;
+  padding: 20px;
+  border-radius: 10px;
+  color: white;
+  text-align: center;
+  width: 300px;
+  z-index: 101; /* Toujours au-dessus du fond */
+}
+
+/* Flouter et rendre moins visible l'heure quand la modale est ouverte */
+.modal-open .time {
+  opacity: 0.3;
+  filter: blur(2px);
+}
+
+.alarm-setup {
+  margin: 20px 0;
+}
+
+.alarm-setup label, .alarm-setup select {
+  font-size: 1.2rem;
+  margin: 5px;
+}
+
+.modal-buttons {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 20px;
+}
+
+.modal-buttons button {
+  background: #5A99D3;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 10px;
+  color: white;
+  cursor: pointer;
+}
+
+.modal-buttons button:hover {
+  background-color: #347ABD;
+}
+
+/* Modal pour les settings */
+#settingsModal {
+  display: none; /* Caché par défaut */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  justify-content: center;
+  align-items: center;
+  z-index: 100;
+}
+
+#settingsModal .modal-content {
+  background: #333;
+  padding: 20px;
+  border-radius: 10px;
+  color: white;
+  text-align: center;
+  width: 300px;
+}
+
+.settings, .color-change {
+    margin-top: 20px;
+}
+
+.modal-buttons button {
+  background: #5A99D3;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 10px;
+  color: white;
+  cursor: pointer;
+  margin: 5px;
+}
+/* Styles du menu déroulant pour les fuseaux horaires */
+.timezone-select {
+  margin-top: 10px;
+  text-align: center;
+  font-size: 1rem;
+}
+
+.timezone-select select {
+  padding: 5px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  background-color: #2C2F33;
+  color: white;
+}
+
+
+/* style du bouton pour arreter le reveil*/
+#stopButton {
+  display: none; /* Cacher par défaut */
+  background-color: #e74c3c; /* Couleur rouge vive */
+  color: white; /* Couleur du texte */
+  border: none; /* Supprime la bordure par défaut */
+  border-radius: 15px; /* Coins arrondis */
+  padding: 15px 30px; /* Espacement intérieur du bouton */
+  font-size: 1.2rem; /* Taille du texte */
+  font-weight: bold; /* Texte en gras */
+  cursor: pointer; /* Changer le curseur lorsqu'on passe sur le bouton */
+  box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2); /* Ombre pour donner de la profondeur */
+  transition: background-color 0.3s ease, transform 0.2s ease; /* Transition pour l'effet au survol */
+  
+  /* Position centrée dans l'écran */
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); /* Centrer par rapport à la taille du bouton */
+  z-index: 300; /* Au-dessus des autres éléments */
+}
+
+#stopButton:hover {
+  background-color: #c0392b; /* Changer la couleur au survol */
+  transform: translate(-50%, -50%) scale(1.05); /* Légère agrandissement au survol */
+}
+
+#stopButton:active {
+  transform: translate(-50%, -50%) scale(0.95); /* Effet de "pression" lorsqu'on clique */
+  box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.2); /* Réduire l'ombre au clic */
+}
