@@ -2,7 +2,7 @@
 //================Variables Globales================================================================================================================
 
 let now = new Date();
-let is24HourFormat = true; // Default to 12-hour format
+let is24HourFormat = true; // Default to 24-hour format
 let selectedTimeZone = 'local'; // Default time zone
 let alarmTime = null; // Store the alarm time
 let alarmSound = null; // Store the selected alarm sound
@@ -74,16 +74,22 @@ function updateClock() {
 					let minutes = now.getMinutes();
 				  minutes = minutes < 10 ? '0' + minutes : minutes;
 
+
+				  let period = ''; // AM or PM
+
 				  // Gérer l'affichage 12h ou 24h
 				  if (!is24HourFormat) {
-					hours = hours > 12 ? hours - 12 : hours;
-					hours = hours === 0 ? 12 : hours; // Afficher 12 au lieu de 0 pour minuit
+					period = hours >= 12 ? 'PM' : 'AM'; // Determine AM or PM
+					hours = hours > 12 ? hours - 12 : hours; // Convert to 12-hour format
+					hours = hours === 0 ? 12 : hours; // Display 12 instead of 0 for midnight
+					timeElement.style.fontSize = '3rem';//Changer la police pour que l'affichage de l'heure ne soit pas trop grosse
 				  } else {
 					hours = hours < 10 ? '0' + hours : hours;
+					timeElement.style.fontSize = '4rem';//Changer la police pour que l'affichage de l'heure ne soit pas trop petit
 				  }
 
-				  timeElement.textContent = `${hours}:${minutes}`;
-				  
+				  // Display time with AM/PM if in 12-hour format
+				  timeElement.textContent = `${hours}:${minutes} ${!is24HourFormat ? period : ''}`;
 				}
 
 
