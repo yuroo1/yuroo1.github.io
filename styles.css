@@ -197,6 +197,36 @@ span {
   color: white;
 }
 
+/* Notification styles */
+#timezone-message {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #5A99D3;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
+  box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
+  font-size: 1rem;
+  opacity: 0;
+  transition: opacity 0.5s ease, bottom 0.5s ease;
+  z-index: 1000;  /* Ensure it appears above other content */
+}
+
+/* Show the message */
+#timezone-message.show {
+  opacity: 1;
+  z-index: 400;
+  bottom: 40px;  /* Move it up slightly when shown */
+}
+
+/* Hidden state */
+.hidden {
+  display: none;
+}
+
+
 
 /* style du bouton pour arreter le reveil*/
 #stopButton {
@@ -229,3 +259,19 @@ span {
   transform: translate(-50%, -50%) scale(0.95); /* Effet de "pression" lorsqu'on clique */
   box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.2); /* Réduire l'ombre au clic */
 }
+
+/* Style for the volume control slider */
+.volume-control {
+  text-align: center;
+}
+
+.volume-control label {
+  font-size: 1rem;
+  color: white;
+}
+
+#volume-slider {
+  width: 100%;
+  margin-top: 10px;
+}
+

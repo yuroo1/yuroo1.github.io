@@ -8,7 +8,7 @@ let alarmTime = null; // Store the alarm time
 let alarmSound = null; // Store the selected alarm sound
 let alarmePasLancer=true // variable qui sert a vérifiée que l'qlarme n'est pas déjà lancée
 let audio = null; // Déclarez l'audio comme une variable globale pour pouvoir l'arreter depuis n'importe quelle fonctions (par exemple ici depuis la fonction du bouton Stop)
-
+let alarmVolume = 0.5;  // Default volume level
 let hours = now.getHours();
 let minutes = now.getMinutes();
 
@@ -17,7 +17,7 @@ updateClock(); // Appel initial pour afficher l'heure immédiatement
 
 
 
-
+const volumeSlider = document.getElementById('volume-slider');
 const timezoneSelect = document.getElementById('timezone');
 const timeElement = document.getElementById('time');
 
@@ -43,10 +43,11 @@ const colorPicker = document.getElementById('color-picker');
 
 
 
-// Ferme la modale des settings
+//La modale des settings
 const settingsBtn = document.getElementById('settingsBtn');
 const settingsModal = document.getElementById('settingsModal');
 const closeSettingsBtn = document.getElementById('closeSettings');
+const timezoneMessage = document.getElementById('timezone-message');
 
 
 
@@ -62,9 +63,10 @@ const closeSettingsBtn = document.getElementById('closeSettings');
 // Met à jour l'heure selon le fuseau horaire et le format sélectionné
 
 function updateClock() {
-				  const timeElement = document.getElementById('time');
-				  let now = new Date();
 
+	const timeElement = document.getElementById('time');
+
+				  let now = new Date();
 				  // Si un fuseau horaire est sélectionné, ajuste l'heure
 				  if (selectedTimeZone !== 'local') {
 					const options = { timeZone: selectedTimeZone };
@@ -90,7 +92,7 @@ function updateClock() {
 
 				  // Display time with AM/PM if in 12-hour format
 				  timeElement.textContent = `${hours}:${minutes} ${!is24HourFormat ? period : ''}`;
-				}
+}
 
 
 // Mise à jour de l'heure toutes les secondes
@@ -143,8 +145,6 @@ setAlarmBtn.addEventListener('click', () => {
   alarmTime = `${selectedHour.padStart(2, '0')}:${selectedMinute.padStart(2, '0')}`;
   console.log(`Alarm set for ${alarmTime} with sound ${alarmSound}`);
   
-  // On dit que l'alarme n'est pas lancée à chaque fois qu'on set une nouvelle alarme
-  	alarmePasLancer=true
 
   // Hide the modal after setting the alarm
   alarmModal.style.display = 'none';
@@ -154,12 +154,20 @@ setAlarmBtn.addEventListener('click', () => {
 // Function to check the current time and compare it with the alarm time
 function checkAlarm() {
   if (!alarmTime) return;  // If no alarm is set, exit the function
-
-  const now = new Date();
+  
+  
+  // Get the current time based on the selected timezone
+  let now = new Date();
+  if (selectedTimeZone !== 'local') {
+    const options = { timeZone: selectedTimeZone };
+    now = new Date(now.toLocaleString('en-US', options)); // Convert current time to the selected timezone
+  }
+  
   const currentHour = now.getHours().toString().padStart(2, '0');
   const currentMinute = now.getMinutes().toString().padStart(2, '0');
   const currentTime = `${currentHour}:${currentMinute}`;
 
+//Lance l'alarme
   if (currentTime === alarmTime & alarmePasLancer) {
 	audio = new Audio(`${alarmSound}.mp3`); // Initialiser l'audio global
     audio.play(); // Jouer le son d'alarme
@@ -183,6 +191,9 @@ stopButton.addEventListener('click', () => {
         audio.currentTime = 0;   // Remet la musique au début (facultatif)
     }
     stopButton.style.display = 'none';  // Masquer le bouton après l'arrêt
+	  // On dit que l'alarme n'est pas lancée à chaque fois qu'on arrete l'alarme
+  	alarmePasLancer=true
+
 	document.body.classList.remove('modal-open');  // Retire la classe quand la modale est fermée
 
 });
@@ -207,12 +218,25 @@ setInterval(checkAlarm, 3000);  // 3000 ms = 3sec
 
 
 
+// Function qui affiche le meessage quand tu changes de fuseau horaire
+function showTimezoneMessage() {
+	
+  timezoneMessage.classList.remove('hidden');  // Ensure the message is visible
+  timezoneMessage.classList.add('show');       // Add show class for animation
+  
+  // Hide the message after 3 seconds
+  setTimeout(() => {
+    timezoneMessage.classList.remove('show');
+	 timezoneMessage.classList.add('hidden');   // Re-add the hidden class after fading out
+  }, 3000);
+}
 
 // Gestion du changement de fuseau horaire via le menu déroulant
 
 timezoneSelect.addEventListener('change', () => {
   selectedTimeZone = timezoneSelect.value;
   updateClock();
+  showTimezoneMessage();  // Show the success message
 });
 
 // Populate the hour and minute dropdowns
@@ -266,3 +290,13 @@ settingsBtn.addEventListener('click', () => {
 
 
 
+//================Gestion du volume================================================================================================================
+
+// Update the alarm volume based on slider input
+volumeSlider.addEventListener('input', function () {
+  alarmVolume = this.value;  // Get the new volume value from the slider
+  if (audio) {
+    audio.volume = alarmVolume;  // Set the audio volume if the alarm is playing
+  }
+});
+//================FIN Gestion du volume================================================================================================================
