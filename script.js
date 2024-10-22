@@ -107,6 +107,8 @@ setInterval(updateClock, 1000);
 
 timeElement.addEventListener('click', () => {
   is24HourFormat = !is24HourFormat; // Alterne entre 12h et 24h
+  timeElement.classList.add('clicked');
+  setTimeout(() => timeElement.classList.remove('clicked'), 300);
   updateClock();
 });
 
