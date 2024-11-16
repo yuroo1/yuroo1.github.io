@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Smart Clock Interface</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+	  <div class="clock-container" id="clock-container">
+		<div class="clock-face">
+		  <div class="time" id="time">12:39</div>
+		  <div class="dial"></div>
+		</div>
+		
+		
+<div class="volume-control">
+  <label for="volume-slider">Volume 🔊:</label>
+  <input type="range" id="volume-slider" min="0" max="1" step="0.1" value="0.5">
+</div>
+
+		
+		<div class="buttons">
+		  <button class="btn" id='syncBtn'>⏳ <span>Alarme</span></button>
+		  <button class="btn" id="settingsBtn">⚙️ <span>Settings</span></button>
+		  
+			<!-- Modal pour la couleur de fond -->
+			<div class="modal" id="settingsModal">
+			  <div class="modal-content">
+				<h2>Changer la couleur du fond</h2>
+				<div class="color-change">
+							<label for="color">Changer la couleur de l'interface :</label>
+							<input type="color" id="color-picker">
+				</div>
+					<!-- Menu déroulant pour sélectionner le fuseau horaire -->
+					<h2>Changer le fuseau horaire </h2>
+				<div class="timezone-select">
+				  <label for="timezone">Fuseau horaire :</label>
+				  <select id="timezone">
+					<option value="local">Local</option>
+					<option value="Europe/Paris">Europe/Paris</option>
+					<option value="America/New_York">America/New_York</option>
+					<option value="Asia/Tokyo">Asia/Tokyo</option>
+					<option value="Australia/Sydney">Australia/Sydney</option>
+					<option value="Africa/Johannesburg">Africa/Johannesburg</option>
+				  </select>
+				</div>
+				
+				<div id="timezone-message" class="hidden">Fuseau horaire changé avec succès !</div>
+
+				<div class="modal-buttons">
+				  <button id="closeSettings">Fermer</button>
+				</div>
+			  </div>
+			</div>
+		</div>
+	  </div>
+
+
+
+  <!-- Modal for Alarm Setup -->
+  
+  
+  <div class="modal" id="alarmModal">
+    <div class="modal-content">
+	
+
+		<!-- Menu déroulant pour sélectionner le son de l'alarm -->
+		 <h2>Change Alarm Song</h2>
+			<div class="song-select">
+			  <label for="song">Musiques :</label>
+			  <select id="song">
+				<option value="Sardoche">Sardoche</option>
+				<option value="Bip-Bip">Bip-Bip</option>
+				<option value="Doux-Reveil">Doux-Reveil</option>
+				<option value="Pluie">Pluie</option>
+				<option value="Eclairs">Eclairs</option>
+				<option value="ChatQuiMiaule">ChatQuiMiaule</option>
+			  </select>
+			</div>
+	
+	
+	
+      <h2>Set Alarm</h2>
+      <div class="alarm-setup">
+
+        <select id="alarm-hours">
+          <!-- JavaScript will populate this -->
+        </select>
+		<label for="alarm-hours">H</label>
+		
+        <select id="alarm-minutes">
+          <!-- JavaScript will populate this -->
+        </select>
+        <label for="alarm-minutes">Min</label>
+      </div>
+      <div class="modal-buttons">
+        <button id="setAlarm">Set Alarm</button>
+        <button id="cancelAlarm">Cancel</button>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Le bouton sera caché au départ -->
+<button id="stopButton" style="display: none;">Arrêter le réveil</button>
+
+
+  <script src="script.js"></script>
+</body>
+</html>
