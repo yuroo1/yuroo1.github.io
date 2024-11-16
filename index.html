@@ -1,111 +1,517 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Smart Clock Interface</title>
-  <link rel="stylesheet" href="styles.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pacôme CHATAIGNER - Génie Sensoriel</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <style>
+        :root {
+            --background: #0a0a0a;
+            --surface: #1a1a1a;
+            --primary: #00ff88;
+            --secondary: #ff3366;
+            --accent: #7000ff;
+            --text: #ffffff;
+            --text-secondary: rgba(255, 255, 255, 0.7);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--background);
+            color: var(--text);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                45deg,
+                transparent 0%,
+                var(--primary) 30%,
+                var(--accent) 70%,
+                transparent 100%
+            );
+            animation: gradient 15s linear infinite;
+            opacity: 0.1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .hero-content h1 {
+            font-size: 5rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: titleGlow 2s ease-in-out infinite alternate;
+        }
+
+        .hero-content p {
+            font-size: 2rem;
+            color: var(--text-secondary);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .section {
+            min-height: 100vh;
+            padding: 6rem 2rem;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .section h2 {
+            font-size: 3rem;
+            margin-bottom: 3rem;
+            text-align: center;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .competences {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+            width: 100%;
+        }
+		.competences a {
+			text-decoration: none; /* Supprime le soulignement */
+			color: inherit; /* Garde la couleur d'origine du texte */
+			display: block; /* Permet de cliquer sur toute la carte */
+		}
+
+        .competence-card {
+            background: var(--surface);
+            padding: 2rem;
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .competence-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            border-color: var(--primary);
+            box-shadow: 0 0 30px rgba(0, 255, 136, 0.2);
+        }
+
+        .competence-card h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+
+        .competence-card p {
+            color: var(--text-secondary);
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .floating-nav {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 100;
+            background: rgba(26, 26, 26, 0.9);
+            padding: 1rem 2rem;
+            border-radius: 30px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .floating-nav a {
+            color: var(--text);
+            text-decoration: none;
+            margin: 0 1rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .floating-nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: width 0.3s ease;
+        }
+
+        .floating-nav a:hover::after {
+            width: 100%;
+        }
+
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        @keyframes titleGlow {
+            from {
+                text-shadow: 0 0 20px rgba(0, 255, 136, 0.5);
+            }
+            to {
+                text-shadow: 0 0 30px rgba(112, 0, 255, 0.7);
+            }
+        }
+
+        @keyframes gradient {
+            0% {
+                transform: translate(-50%, -50%) rotate(0deg);
+            }
+            100% {
+                transform: translate(-50%, -50%) rotate(360deg);
+            }
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0);
+            }
+            40% {
+                transform: translateY(-30px);
+            }
+            60% {
+                transform: translateY(-15px);
+            }
+        }
+
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 3px;
+            background: var(--primary);
+            z-index: 1000;
+        }
+
+        @media (max-width: 768px) {
+            .hero-content h1 {
+                font-size: 3rem;
+            }
+            .hero-content p {
+                font-size: 1.5rem;
+            }
+            .section h2 {
+                font-size: 2.5rem;
+            }
+            .competence-card {
+                padding: 1.5rem;
+            }
+        }
+				.modal {
+			display: none;
+			position: fixed;
+			z-index: 1000;
+			left: 0;
+			top: 0;
+			width: 100%;
+			height: 100%;
+			background-color: rgba(0, 0, 0, 0.5);
+		}
+
+		.modal-content {
+			background-color: var(--surface);
+			margin: 10% auto;
+			padding: 2rem;
+			width: 80%;
+			max-width: 600px;
+			border-radius: 10px;
+			color: var(--text);
+			position: relative;
+		}
+
+		.close {
+			position: absolute;
+			top: 10px;
+			right: 20px;
+			font-size: 2rem;
+			color: var(--text-secondary);
+			cursor: pointer;
+		}
+
+    </style>
 </head>
 <body>
+    <div class="progress-bar"></div>
+    <div class="particles" id="particles"></div>
+    
+    <nav class="floating-nav">
+        <a href="#accueil">Accueil</a>
+        <a href="#formation">Formation</a>
+        <a href="#competences">Compétences</a>
+		<a href="#projets">Projets</a>
+        <a href="#contact">Contact</a>
+    </nav>
 
-	  <div class="clock-container" id="clock-container">
-		<div class="clock-face">
-		  <div class="time" id="time">12:39</div>
-		  <div class="dial"></div>
-		</div>
-		
-		
-<div class="volume-control">
-  <label for="volume-slider">Volume 🔊:</label>
-  <input type="range" id="volume-slider" min="0" max="1" step="0.1" value="0.5">
-</div>
+    <section id="accueil" class="hero">
+        <div class="hero-content">
+            <h1>Pacôme CHATAIGNER</h1>
+            <p>Ingénieur en Génie Sensoriel</p>
+            <p>Central Lyon - ENISE</p>
+        </div>
+        <div class="scroll-indicator">
+            <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 5v14M19 12l-7 7-7-7"/>
+            </svg>
+        </div>
+    </section>
 
-		
-		<div class="buttons">
-		  <button class="btn" id='syncBtn'>⏳ <span>Alarme</span></button>
-		  <button class="btn" id="settingsBtn">⚙️ <span>Settings</span></button>
-		  
-			<!-- Modal pour la couleur de fond -->
-			<div class="modal" id="settingsModal">
-			  <div class="modal-content">
-				<h2>Changer la couleur du fond</h2>
-				<div class="color-change">
-							<label for="color">Changer la couleur de l'interface :</label>
-							<input type="color" id="color-picker">
-				</div>
-					<!-- Menu déroulant pour sélectionner le fuseau horaire -->
-					<h2>Changer le fuseau horaire </h2>
-				<div class="timezone-select">
-				  <label for="timezone">Fuseau horaire :</label>
-				  <select id="timezone">
-					<option value="local">Local</option>
-					<option value="Europe/Paris">Europe/Paris</option>
-					<option value="America/New_York">America/New_York</option>
-					<option value="Asia/Tokyo">Asia/Tokyo</option>
-					<option value="Australia/Sydney">Australia/Sydney</option>
-					<option value="Africa/Johannesburg">Africa/Johannesburg</option>
-				  </select>
-				</div>
-				
-				<div id="timezone-message" class="hidden">Fuseau horaire changé avec succès !</div>
+    <section id="formation" class="section">
+        <h2>Formation</h2>
+        <div class="competences">
+            <div class="competence-card">
+                <h3>2024-2027</h3>
+                <p>Cycle d'ingénieur en génie sensoriel</p>
+                <p>Central Lyon - ENISE</p>
+            </div>
+            <div class="competence-card">
+                <h3>2022-2024</h3>
+                <p>Préparation intégrée</p>
+                <p>TELECOM ST ETIENNE, CITISE</p>
+            </div>
+        </div>
+    </section>
 
-				<div class="modal-buttons">
-				  <button id="closeSettings">Fermer</button>
-				</div>
-			  </div>
+    <section id="competences" class="section">
+        <h2>Compétences</h2>
+        <div class="competences">
+            <div class="competence-card">
+                <h3>Technique</h3>
+                <p>VR/AR</p>
+                <p>UX Design</p>
+                <p>Analyse Sensorielle</p>
+            </div>
+            <div class="competence-card">
+                <h3>Langues</h3>
+                <p>Français - Natif</p>
+                <p>Anglais - B2</p>
+                <p>Espagnol - A2</p>
+            </div>
+            <div class="competence-card">
+                <h3>Soft Skills</h3>
+                <p>Communication</p>
+                <p>Travail d'équipe</p>
+                <p>Gestion du stress</p>
+            </div>
+        </div>
+    </section>
+	
+		
+	<section id="projets" class="section">
+		<h2>Projets</h2>
+		<div class="competences">
+			<a href="https://yuroo1.github.io/" target="_blank" class="competence-card">
+				<h3>Site Reveil</h3>
+				<p>Développement d'une interface homme-machine (IHM) pour une horloge intelligente dans le but de travailler l'IU</p>
+		     </a>
+			 <a href="https://yuroo1.github.io/" target="_blank" class="competence-card">
+				<h3>Robot roulant</h3>
+				<p>Conception et programmation d'un robot capable d'éviter les obstacles grâce à des capteurs de contact et/ou à ultrasons, avec du code en C++.</p>
+		     </a>
+			<div class="competence-card">
+				<h3>Cryptanalyse</h3>
+				<p>Implémentation en C++ d'une cryptanalyse d'un système de chiffrement par permutation.</p>
+			</div>
+			<div class="competence-card">
+				<h3>Application de gestion de menu</h3>
+				<p>Développement d'une application en C# pour gérer un menu IHM connecté à une base de données.</p>
 			</div>
 		</div>
-	  </div>
+	</section>
 
 
+    <section id="contact" class="section">
+        <h2>Contact</h2>
+        <div class="competences">
+            <div class="competence-card">
+                <h3>Coordonnées</h3>
+                <p>Email: pacome.chataigner@enise.fr</p>
+                <p>Téléphone: +33 7 69 72 09 09</p>
+                <p>41 Rue Charles De Gaulle</p>
+                <p>42000 Saint-Etienne</p>
+            </div>
+        </div>
+    </section>
 
-  <!-- Modal for Alarm Setup -->
-  
-  
-  <div class="modal" id="alarmModal">
-    <div class="modal-content">
-	
+    <script>
+        // Animation des particules
+        const canvas = document.createElement('canvas');
+        const ctx = canvas.getContext('2d');
+        canvas.style.position = 'fixed';
+        canvas.style.top = '0';
+        canvas.style.left = '0';
+        canvas.style.width = '100%';
+        canvas.style.height = '100%';
+        canvas.style.pointerEvents = 'none';
+        canvas.style.zIndex = '1';
+        document.querySelector('.particles').appendChild(canvas);
 
-		<!-- Menu déroulant pour sélectionner le son de l'alarm -->
-		 <h2>Change Alarm Song</h2>
-			<div class="song-select">
-			  <label for="song">Musiques :</label>
-			  <select id="song">
-				<option value="Sardoche">Sardoche</option>
-				<option value="Bip-Bip">Bip-Bip</option>
-				<option value="Doux-Reveil">Doux-Reveil</option>
-				<option value="Pluie">Pluie</option>
-				<option value="Eclairs">Eclairs</option>
-				<option value="ChatQuiMiaule">ChatQuiMiaule</option>
-			  </select>
-			</div>
-	
-	
-	
-      <h2>Set Alarm</h2>
-      <div class="alarm-setup">
+        let particles = [];
+        const particleCount = 50;
 
-        <select id="alarm-hours">
-          <!-- JavaScript will populate this -->
-        </select>
-		<label for="alarm-hours">H</label>
-		
-        <select id="alarm-minutes">
-          <!-- JavaScript will populate this -->
-        </select>
-        <label for="alarm-minutes">Min</label>
-      </div>
-      <div class="modal-buttons">
-        <button id="setAlarm">Set Alarm</button>
-        <button id="cancelAlarm">Cancel</button>
-      </div>
-    </div>
-  </div>
-  
-  <!-- Le bouton sera caché au départ -->
-<button id="stopButton" style="display: none;">Arrêter le réveil</button>
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
 
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 2;
+                this.speedX = Math.random() * 1 - 0.5;
+                this.speedY = Math.random() * 1 - 0.5;
+                this.color = `rgba(0, 255, 136, ${Math.random() * 0.5})`;
+            }
 
-  <script src="script.js"></script>
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+
+                if (this.x > canvas.width) this.x = 0;
+                if (this.x < 0) this.x = canvas.width;
+                if (this.y > canvas.height) this.y = 0;
+                if (this.y < 0) this.y = canvas.height;
+            }
+
+            draw() {
+                ctx.fillStyle = this.color;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        function initParticles() {
+            particles = [];
+            for (let i = 0; i < particleCount; i++) {
+                particles.push(new Particle());
+            }
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            particles.forEach(particle => {
+                particle.update();
+                particle.draw();
+            });
+
+            requestAnimationFrame(animate);
+        }
+
+        window.addEventListener('resize', () => {
+            resizeCanvas();
+            initParticles();
+        });
+
+        resizeCanvas();
+        initParticles();
+        animate();
+
+        // Animation au scroll
+        const sections = document.querySelectorAll('.section');
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: "0px"
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        sections.forEach(section => {
+            section.style.opacity = '0';
+            section.style.transform = 'translateY(50px)';
+            section.style.transition = 'all 0.8s ease-out';
+            observer.observe(section);
+        });
+
+        // Barre de progression
+        window.addEventListener('scroll', () => {
+            const windowHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (window.scrollY / windowHeight) * 100;
+            document.querySelector('.progress-bar').style.width = scrolled + '%';
+        });
+
+        // Navigation fluide
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+		function openModal(modalId) {
+			document.getElementById(modalId).style.display = "block";
+		}
+
+		function closeModal(modalId) {
+			document.getElementById(modalId).style.display = "none";
+		}
+
+		// Fermer la modale en cliquant en dehors
+		window.onclick = function(event) {
+			const modals = document.getElementsByClassName("modal");
+			for (let i = 0; i < modals.length; i++) {
+				if (event.target === modals[i]) {
+					modals[i].style.display = "none";
+				}
+			}
+		}
+
+    </script>
 </body>
 </html>
