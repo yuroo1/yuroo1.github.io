@@ -312,18 +312,27 @@
     <section id="formation" class="section">
         <h2>Formation</h2>
         <div class="competences">
-            <div class="competence-card">
+            <a href="https://enise.ec-lyon.fr/formation/ingenieur-genie-sensoriel-389" target="_blank" class="competence-card">
                 <h3>2024-2027</h3>
                 <p>Cycle d'ingénieur en génie sensoriel</p>
                 <p>Central Lyon - ENISE</p>
-            </div>
-            <div class="competence-card">
+            </a>
+			 <!-- Bouton pour ouvrir la modale de la vidéo -->
+            <button onclick="openModal('modalVideoGenieSensoriel')">Voir la vidéo de présentation</button>
+            <a href="https://www.telecom-st-etienne.fr/formation/prepa-integree-citise/" target="_blank" class="competence-card">
                 <h3>2022-2024</h3>
                 <p>Préparation intégrée</p>
                 <p>TELECOM ST ETIENNE, CITISE</p>
-            </div>
+            </a>
         </div>
     </section>
+	<!-- Modale pour la vidéo de présentation en génie sensoriel -->
+	<div id="modalVideoGenieSensoriel" class="modal">
+		<div class="modal-content">
+			<span class="close" onclick="closeModal('modalVideoGenieSensoriel')">&times;</span>
+		    <iframe class="iframe-projet" src="https://www.youtube.com/embed/CFfFvVUl1yg?si=Ga4_l-G6AMpKyejm" allowfullscreen></iframe>
+		</div>
+	</div>
 
     <section id="competences" class="section">
         <h2>Compétences</h2>
