@@ -105,7 +105,6 @@
             width: 100%;
         }
 
-        /* Styles de base pour toutes les cartes */
         .competence-card {
             background: var(--surface);
             padding: 2rem;
@@ -115,7 +114,6 @@
             position: relative;
         }
 
-        /* Style pour les cartes cliquables */
         .competence-card.clickable {
             cursor: pointer;
         }
@@ -149,10 +147,6 @@
             width: 100%;
         }
 
-        .competence-card:not(.clickable) {
-            cursor: default;
-        }
-
         .competence-card:not(.clickable):hover {
             transform: translateY(-5px);
         }
@@ -169,85 +163,69 @@
             margin-bottom: 0.5rem;
         }
 
-		.floating-nav {
-			position: fixed;
-			top: 20px;
-			left: 50%;
-			transform: translateX(-50%);
-			z-index: 100;
-			background: rgba(10, 10, 10, 0.8);
-			padding: 1rem 2rem;
-			border-radius: 30px;
-			backdrop-filter: blur(10px);
-			border: 1px solid rgba(255, 255, 255, 0.1);
-			display: flex;
-			justify-content: center;
-			gap: 2rem;
-		}
-
-		.floating-nav a {
-			color: var(--text);
-			text-decoration: none;
-			font-weight: 500;
-			transition: all 0.3s ease;
-			position: relative;
-			font-size: 1.1rem;
-				}
-		/* Style pour la modale */
-		.modal {
-			display: none;
-			position: fixed;
-			z-index: 1000;
-			left: 0;
-			top: 0;
-			width: 100%;
-			height: 100%;
-			background-color: rgba(0, 0, 0, 0.8);
-			align-items: center;
-			justify-content: center;
-		}
-
-		/* Style pour le contenu de la modale */
-		.modal-content {
-			background-color: var(--surface);
-			width: 90%;
-			max-width: 800px;
-			position: relative;
-			border-radius: 15px;
-			padding: 1rem;
-		}
-
-		/* Style pour le bouton de fermeture */
-		.close {
-			position: absolute;
-			top: -30px;
-			right: -30px;
-			font-size: 2rem;
-			color: white;
-			cursor: pointer;
-			z-index: 1001;
-		}
-
-		/* Style pour l'iframe */
-		.iframe-projet {
-			width: 100%;
-			aspect-ratio: 16/9;
-			border: none;
-			border-radius: 10px;
-			display: block;
-		}
-        .burger-menu {
-            display: none;
-            cursor: pointer;
-            padding: 0.5rem;
+        .floating-nav {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 100;
+            background: rgba(10, 10, 10, 0.8);
+            padding: 1rem 2rem;
+            border-radius: 30px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
         }
 
-        .burger-menu div {
-            width: 25px;
-            height: 3px;
-            background-color: var(--text);
-            margin: 5px 0;
-            transition: 0.3s;
+        .floating-nav a {
+            color: var(--text);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+            font-size: 1.1rem;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background-color: var(--surface);
+            width: 90%;
+            max-width: 800px;
+            position: relative;
+            border-radius: 15px;
+            padding: 1rem;
+        }
+
+        .close {
+            position: absolute;
+            top: -30px;
+            right: -30px;
+            font-size: 2rem;
+            color: white;
+            cursor: pointer;
+            z-index: 1001;
+        }
+
+        .iframe-projet {
+            width: 100%;
+            aspect-ratio: 16/9;
+            border: none;
+            border-radius: 10px;
+            display: block;
         }
 
         .btn-video {
@@ -267,31 +245,26 @@
             display: block;
         }
 
-		.contact-grid {
-			display: grid;
-			grid-template-columns: 1fr 1fr;
-			gap: 2rem;
-			max-width: 1200px;
-			margin: 0 auto;
-		}
 
-		.contact-info {
-			display: flex;
-			flex-direction: column;
-			justify-content: space-between;
-		}
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
 
-		.contact-info .btn-video {
-			margin-top: auto; /* Place le bouton en bas */
-			width: auto; /* Évite que le bouton prenne toute la largeur */
-		}
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
 
-		.contact-form {
-			background: var(--surface);
-			padding: 2rem;
-			border-radius: 15px;
-			height: fit-content;
-		}
+        .contact-form {
+            background: var(--surface);
+            padding: 2rem;
+            border-radius: 15px;
+        }
 
         .contact-form input,
         .contact-form textarea {
@@ -309,10 +282,18 @@
             resize: vertical;
         }
 
-        .contact-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 2rem;
+        .burger-menu {
+            display: none;
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+
+        .burger-menu div {
+            width: 25px;
+            height: 3px;
+            background-color: var(--text);
+            margin: 5px 0;
+            transition: 0.3s;
         }
 
         @media (max-width: 768px) {
@@ -355,43 +336,36 @@
             .contact-grid {
                 grid-template-columns: 1fr;
             }
+
+            .hero-content h1 {
+                font-size: 3rem;
+            }
+
+            .hero-content p {
+                font-size: 1.5rem;
+            }
         }
-		
-				/* Style pour le conteneur des coordonnées */
-		.contact-info {
-			display: flex;
-			flex-direction: column;
-			gap: 1rem;
-			height: auto; /* Permet au conteneur de s'adapter à son contenu */
-		}
 
-		/* Style spécifique pour le bouton de CV */
-		.contact-info .btn-video {
-			width: fit-content; /* Largeur adaptée au contenu */
-			padding: 0.5rem 1rem; /* Padding réduit */
-			font-size: 0.9rem; /* Police plus petite */
-			margin-top: 1rem; /* Espacement au-dessus du bouton */
-			align-self: flex-start; /* Aligne le bouton à gauche */
-		}
+        @keyframes titleGlow {
+            from {
+                text-shadow: 0 0 20px rgba(0, 255, 136, 0.5);
+            }
+            to {
+                text-shadow: 0 0 30px rgba(112, 0, 255, 0.7);
+            }
+        }
 
-		/* Mise en forme de la grille de contact pour éviter les problèmes d'espacement */
-		.contact-grid {
-			display: grid;
-			grid-template-columns: 1fr 1fr;
-			gap: 2rem;
-			align-items: start; /* Aligne les éléments en haut */
-		}
-
-		/* Style de la carte de contact pour maintenir une hauteur appropriée */
-		.contact-info.competence-card {
-			height: auto;
-			padding-bottom: 1rem;
-		}
+        @keyframes gradient {
+            0% {
+                transform: translate(-50%, -50%) rotate(0deg);
+            }
+            100% {
+                transform: translate(-50%, -50%) rotate(360deg);
+            }
+        }
     </style>
 </head>
 <body>
-
-    <div class="progress-bar"></div>
     <div class="particles" id="particles"></div>
     
     <div class="burger-menu">
@@ -421,9 +395,7 @@
             </svg>
         </div>
     </section>
-	
 
-		
     <section id="formation" class="section">
         <h2>Formation</h2>
         <div class="competences">
@@ -450,7 +422,6 @@
     <div id="modalVideoGenieSensoriel" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeModal('modalVideoGenieSensoriel')">&times;</span>
-            <iframe class="iframe-projet" src="https://www.youtube.com/embed/CFfFvVUl1yg?si=Ga4_l-G6AMpKyejm" allowfullscreen></iframe>
         </div>
     </div>
 
@@ -485,7 +456,7 @@
         </div>
     </section>
 
-    <section id="projets" class="section">
+	<section id="projets" class="section">
         <h2>Projets</h2>
         <div class="competences">
             <div class="competence-card clickable">
@@ -504,7 +475,7 @@
                 <h3>Cryptanalyse</h3>
                 <p>Implémentation en C++ d'une cryptanalyse d'un système de chiffrement par permutation.</p>
             </div>
-            <div class="competence-card clickable" onclick="openModal('modalMenuIHM')">
+            <div class="competence-card clickable">
                 <h3>Application de gestion de menu</h3>
                 <p>Développement d'une application en C# pour gérer un menu IHM connecté à une base de données.</p>
             </div>
@@ -517,52 +488,51 @@
             <div class="competence-card">
                 <h3>FOCAL</h3>
                 <p>Assistant ingénieur - 10 semaines (04/2024 - 06/2024)</p>
-            <p>Réorganisation des flux de production</p>
-            <p>Restructuration des postes électroniques</p>
-            <p>Réalisation tests Qualité</p>
-        </div>
-        <div class="competence-card">
-            <h3>TIVA ENERGIE</h3>
-            <p>Stage ouvrier (07/2021 - 08/2021)</p>
-            <p>Diagnostic et réparation cartes électroniques</p>
-            <p>Soudure de précision sur cartes BMS</p>
-	    <p>Analyse des schémas électroniques BMS</p>
-        </div>
-    </div>
-</section>
-
-	
-
-
-
-<section id="contact" class="section">
-    <h2>Contact</h2>
-    <div class="contact-grid">
-        <div class="contact-info competence-card">
-            <div>
-                <h3>Coordonnées</h3>
-                <p>Email: pacome.chataigner@enise.fr</p>
-                <p>Téléphone: +33 7 69 72 09 09</p>
-                <p>41 Rue Charles De Gaulle</p>
-                <p>42000 Saint-Etienne</p>
+                <p>Réorganisation des flux de production</p>
+                <p>Restructuration des postes électroniques</p>
+                <p>Réalisation tests Qualité</p>
             </div>
-            <a href="CV.pdf" download class="btn-video">
-                Télécharger mon CV
-            </a>
+            <div class="competence-card">
+                <h3>TIVA ENERGIE</h3>
+                <p>Stage ouvrier (07/2021 - 08/2021)</p>
+                <p>Diagnostic et réparation cartes électroniques</p>
+                <p>Soudure de précision sur cartes BMS</p>
+                <p>Analyse des schémas électroniques BMS</p>
+            </div>
         </div>
-        <form class="contact-form">
-            <h3>Me contacter</h3>
-            <input type="text" placeholder="Nom" required>
-            <input type="email" placeholder="Email" required>
-            <input type="text" placeholder="Sujet">
-            <textarea placeholder="Votre message" required></textarea>
-            <button type="submit" class="btn-video">Envoyer</button>
-        </form>
-    </div>
-</section>
+    </section>
+
+    <section id="contact" class="section">
+        <h2>Contact</h2>
+        <div class="contact-grid">
+            <div class="contact-info competence-card">
+                <div>
+                    <h3>Coordonnées</h3>
+                    <b>Email:</b> 
+					<p>pacome.chataigner@gmail.com</p>
+                    <b>Téléphone: </b>
+					<p>+33 7 69 72 09 09</p>
+					<b>Adresse: </b>
+                    <p>41 Rue Charles De Gaulle</p>
+                    <p>42000 Saint-Etienne</p>
+                </div>
+                <div>       <p>----------------------------------------------------------------- </p>          </div>
+                <a href="CV.pdf" download class="btn-video">
+                    Télécharger mon CV
+                </a>
+            </div>
+            <form class="contact-form">
+                <h3>Me contacter</h3>
+                <input type="text" placeholder="Nom" required>
+                <input type="email" placeholder="Email" required>
+                <input type="text" placeholder="Sujet">
+                <textarea placeholder="Votre message" required></textarea>
+                <button type="submit" class="btn-video">Envoyer</button>
+            </form>
+        </div>
+    </section>
+
     <script>
-	
-        // Animation des particules
         const canvas = document.createElement('canvas');
         const ctx = canvas.getContext('2d');
         canvas.style.position = 'fixed';
@@ -619,12 +589,10 @@
 
         function animate() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
-            
             particles.forEach(particle => {
                 particle.update();
                 particle.draw();
             });
-
             requestAnimationFrame(animate);
         }
 
@@ -637,13 +605,8 @@
         initParticles();
         animate();
 
-        // Animation au scroll
+        // Gestion des animations au scroll
         const sections = document.querySelectorAll('.section');
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: "0px"
-        };
-
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
@@ -651,20 +614,13 @@
                     entry.target.style.transform = 'translateY(0)';
                 }
             });
-        }, observerOptions);
+        }, { threshold: 0.1 });
 
         sections.forEach(section => {
             section.style.opacity = '0';
             section.style.transform = 'translateY(50px)';
             section.style.transition = 'all 0.8s ease-out';
             observer.observe(section);
-        });
-
-        // Barre de progression
-        window.addEventListener('scroll', () => {
-            const windowHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-            const scrolled = (window.scrollY / windowHeight) * 100;
-            document.querySelector('.progress-bar').style.width = scrolled + '%';
         });
 
         // Navigation fluide
@@ -676,23 +632,39 @@
                 });
             });
         });
-		function openModal(modalId) {
-			document.getElementById(modalId).style.display = "block";
-		}
 
-		function closeModal(modalId) {
-			document.getElementById(modalId).style.display = "none";
-		}
+        // Gestion des modales
+        function openModal(modalId) {
+            const modal = document.getElementById(modalId);
+            if (modalId === 'modalVideoGenieSensoriel') {
+                const modalContent = modal.querySelector('.modal-content');
+                if (!modalContent.querySelector('iframe')) {
+                    const iframe = document.createElement('iframe');
+                    iframe.className = 'iframe-projet';
+                    iframe.src = "https://www.youtube.com/embed/CFfFvVUl1yg?si=Ga4_l-G6AMpKyejm";
+                    iframe.allowFullscreen = true;
+                    modalContent.appendChild(iframe);
+                }
+            }
+            modal.style.display = "flex";
+        }
 
-		// Fermer la modale en cliquant en dehors
-		window.onclick = function(event) {
-			const modals = document.getElementsByClassName("modal");
-			for (let i = 0; i < modals.length; i++) {
-				if (event.target === modals[i]) {
-					modals[i].style.display = "none";
-				}
-			}
-		}
+        function closeModal(modalId) {
+            const modal = document.getElementById(modalId);
+            modal.style.display = "none";
+            if (modalId === 'modalVideoGenieSensoriel') {
+                const iframe = modal.querySelector('iframe');
+                if (iframe) iframe.remove();
+            }
+        }
+
+        window.onclick = function(event) {
+            if (event.target.classList.contains('modal')) {
+                event.target.style.display = "none";
+                const iframe = event.target.querySelector('iframe');
+                if (iframe) iframe.remove();
+            }
+        }
 
         // Gestion du menu burger
         const burgerMenu = document.querySelector('.burger-menu');
@@ -703,7 +675,6 @@
             nav.classList.toggle('active');
         });
 
-        // Fermer le menu en mobile après avoir cliqué sur un lien
         document.querySelectorAll('.floating-nav a').forEach(link => {
             link.addEventListener('click', () => {
                 if (window.innerWidth <= 768) {
@@ -714,5 +685,4 @@
         });
     </script>
 </body>
-	
 </html>
