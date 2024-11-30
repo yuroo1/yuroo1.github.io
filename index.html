@@ -104,25 +104,57 @@
             margin: 0 auto;
             width: 100%;
         }
-		.competences a {
-			text-decoration: none; /* Supprime le soulignement */
-			color: inherit; /* Garde la couleur d'origine du texte */
-			display: block; /* Permet de cliquer sur toute la carte */
-		}
 
+        /* Styles de base pour toutes les cartes */
         .competence-card {
             background: var(--surface);
             padding: 2rem;
             border-radius: 15px;
             border: 1px solid rgba(255, 255, 255, 0.1);
             transition: all 0.3s ease;
+            position: relative;
+        }
+
+        /* Style pour les cartes cliquables */
+        .competence-card.clickable {
             cursor: pointer;
         }
 
-        .competence-card:hover {
+        .competence-card.clickable::after {
+            content: '→';
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 1.2rem;
+            color: var(--primary);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .competence-card.clickable:hover {
             transform: translateY(-10px) scale(1.02);
             border-color: var(--primary);
             box-shadow: 0 0 30px rgba(0, 255, 136, 0.2);
+        }
+
+        .competence-card.clickable:hover::after {
+            opacity: 1;
+        }
+
+        .competence-card a {
+            text-decoration: none;
+            color: inherit;
+            display: block;
+            height: 100%;
+            width: 100%;
+        }
+
+        .competence-card:not(.clickable) {
+            cursor: default;
+        }
+
+        .competence-card:not(.clickable):hover {
+            transform: translateY(-5px);
         }
 
         .competence-card h3 {
@@ -156,6 +188,7 @@
             font-weight: 500;
             transition: all 0.3s ease;
             position: relative;
+            cursor: pointer;
         }
 
         .floating-nav a::after {
@@ -173,141 +206,86 @@
             width: 100%;
         }
 
-        .particles {
+        .btn-video {
+            padding: 0.8rem 1.5rem;
+            color: #333333;
+            background: linear-gradient(45deg, #a8e6cf, #dcedc1);
+            border: 1px solid #b2d8b6;
+            border-radius: 25px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(168, 230, 207, 0.4);
+            outline: none;
+            margin-top: 1rem;
+            width: 100%;
+            display: block;
+        }
+
+        .btn-video:hover {
+            background: linear-gradient(45deg, #dcedc1, #a8e6cf);
+            transform: scale(1.05);
+            box-shadow: 0 6px 15px rgba(168, 230, 207, 0.6);
+        }
+
+        .btn-video:active {
+            transform: scale(0.98);
+        }
+
+        .modal {
+            display: none;
             position: fixed;
-            top: 0;
+            z-index: 1000;
             left: 0;
+            top: 0;
             width: 100%;
             height: 100%;
-            pointer-events: none;
-            z-index: 1;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        .modal-content {
+            background-color: var(--surface);
+            margin: 10% auto;
+            padding: 2rem;
+            width: 80%;
+            max-width: 600px;
+            border-radius: 10px;
+            color: var(--text);
+            position: relative;
+        }
+
+        .close {
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            font-size: 2rem;
+            color: var(--text-secondary);
+            cursor: pointer;
+        }
+
+        .iframe-projet {
+            width: 100%;
+            height: 80vh;
+            border: none;
         }
 
         @keyframes titleGlow {
-            from {
-                text-shadow: 0 0 20px rgba(0, 255, 136, 0.5);
-            }
-            to {
-                text-shadow: 0 0 30px rgba(112, 0, 255, 0.7);
-            }
+            from { text-shadow: 0 0 20px rgba(0, 255, 136, 0.5); }
+            to { text-shadow: 0 0 30px rgba(112, 0, 255, 0.7); }
         }
 
         @keyframes gradient {
-            0% {
-                transform: translate(-50%, -50%) rotate(0deg);
-            }
-            100% {
-                transform: translate(-50%, -50%) rotate(360deg);
-            }
-        }
-
-        .scroll-indicator {
-            position: absolute;
-            bottom: 40px;
-            left: 50%;
-            transform: translateX(-50%);
-            animation: bounce 2s infinite;
-        }
-
-        @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% {
-                transform: translateY(0);
-            }
-            40% {
-                transform: translateY(-30px);
-            }
-            60% {
-                transform: translateY(-15px);
-            }
-        }
-
-        .progress-bar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            height: 3px;
-            background: var(--primary);
-            z-index: 1000;
+            0% { transform: translate(-50%, -50%) rotate(0deg); }
+            100% { transform: translate(-50%, -50%) rotate(360deg); }
         }
 
         @media (max-width: 768px) {
-            .hero-content h1 {
-                font-size: 3rem;
-            }
-            .hero-content p {
-                font-size: 1.5rem;
-            }
-            .section h2 {
-                font-size: 2.5rem;
-            }
-            .competence-card {
-                padding: 1.5rem;
-            }
+            .hero-content h1 { font-size: 3rem; }
+            .hero-content p { font-size: 1.5rem; }
+            .section h2 { font-size: 2.5rem; }
+            .competence-card { padding: 1.5rem; }
         }
-				.modal {
-			display: none;
-			position: fixed;
-			z-index: 1000;
-			left: 0;
-			top: 0;
-			width: 100%;
-			height: 100%;
-			background-color: rgba(0, 0, 0, 0.5);
-		}
-
-		.modal-content {
-			background-color: var(--surface);
-			margin: 10% auto;
-			padding: 2rem;
-			width: 80%;
-			max-width: 600px;
-			border-radius: 10px;
-			color: var(--text);
-			position: relative;
-		}
-
-		.close {
-			position: absolute;
-			top: 10px;
-			right: 20px;
-			font-size: 2rem;
-			color: var(--text-secondary);
-			cursor: pointer;
-		}
-		
-		.iframe-projet {
-			width: 100%;
-			height: 80vh; /* Hauteur ajustable pour mieux s'intégrer dans la modale */
-			border: none;
-		}
-		
-.btn-video {
-    padding: 0.8rem 1.5rem;
-    color: #333333; /* Couleur de texte plus foncée pour le contraste */
-    background: linear-gradient(45deg, #a8e6cf, #dcedc1);
-    border: 1px solid #b2d8b6; /* Bordure légère pour délimiter le bouton */
-    border-radius: 25px;
-    font-size: 1rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 12px rgba(168, 230, 207, 0.4);
-    outline: none;
-}
-
-.btn-video:hover {
-    background: linear-gradient(45deg, #dcedc1, #a8e6cf);
-    transform: scale(1.05);
-    box-shadow: 0 6px 15px rgba(168, 230, 207, 0.6);
-}
-
-.btn-video:active {
-    transform: scale(0.98);
-}
-
-
-		
-
     </style>
 </head>
 <body>
@@ -318,8 +296,8 @@
         <a href="#accueil">Accueil</a>
         <a href="#formation">Formation</a>
         <a href="#competences">Compétences</a>
-	<a href="#projets">Projets</a>
-	<a href="#experience">Expérience</a>
+        <a href="#projets">Projets</a>
+        <a href="#experience">Expérience</a>
         <a href="#contact">Contact</a>
     </nav>
 
@@ -339,46 +317,48 @@
     <section id="formation" class="section">
         <h2>Formation</h2>
         <div class="competences">
-			<div class="competence-card">
-            <a href="https://enise.ec-lyon.fr/formation/ingenieur-genie-sensoriel-389" target="_blank" >
-                <h3>2024-2027</h3>
-                <p>Cycle d'ingénieur en génie sensoriel</p>
-                <p>Central Lyon - ENISE</p>
-            </a>
-										 <!-- Bouton pour ouvrir la modale de la vidéo -->
-			<button class="btn-video" onclick="openModal('modalVideoGenieSensoriel')">Voir la vidéo de présentation</button>
-			</div>
-            <a href="https://www.telecom-st-etienne.fr/formation/prepa-integree-citise/" target="_blank" class="competence-card">
-                <h3>2022-2024</h3>
-                <p>Préparation intégrée</p>
-                <p>TELECOM ST ETIENNE, CITISE</p>
-            </a>
+            <div class="competence-card clickable">
+                <a href="https://enise.ec-lyon.fr/formation/ingenieur-genie-sensoriel-389" target="_blank">
+                    <h3>2024-2027</h3>
+                    <p>Cycle d'ingénieur en génie sensoriel</p>
+                    <p>Central Lyon - ENISE</p>
+                </a>
+                <button class="btn-video" onclick="openModal('modalVideoGenieSensoriel')">
+                    Voir la vidéo de présentation
+                </button>
+            </div>
+            <div class="competence-card clickable">
+                <a href="https://www.telecom-st-etienne.fr/formation/prepa-integree-citise/" target="_blank">
+                    <h3>2022-2024</h3>
+                    <p>Préparation intégrée</p>
+                    <p>TELECOM ST ETIENNE, CITISE</p>
+                </a>
+            </div>
         </div>
     </section>
-	<!-- Modale pour la vidéo de présentation en génie sensoriel -->
-	<div id="modalVideoGenieSensoriel" class="modal">
-		<div class="modal-content">
-			<span class="close" onclick="closeModal('modalVideoGenieSensoriel')">&times;</span>
-		    <iframe class="iframe-projet" src="https://www.youtube.com/embed/CFfFvVUl1yg?si=Ga4_l-G6AMpKyejm" allowfullscreen></iframe>
-		</div>
-	</div>
+
+    <div id="modalVideoGenieSensoriel" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('modalVideoGenieSensoriel')">&times;</span>
+            <iframe class="iframe-projet" src="https://www.youtube.com/embed/CFfFvVUl1yg?si=Ga4_l-G6AMpKyejm" allowfullscreen></iframe>
+        </div>
+    </div>
 
     <section id="competences" class="section">
         <h2>Compétences</h2>
         <div class="competences">
             <div class="competence-card">
-
-		 <h3>Technique</h3>
-	    <p>VR/AR Development</p>
-	    <p>UX/UI Design</p>
-	    <p>Analyse Sensorielle</p>
-	    <p>C++ (VS Code)</p>
-	    <p>C# (Unity)</p>
-	    <p>HTML/CSS/JavaScript</p>
-	    <p>Électronique </p>
-	    <p>CAO/Modélisation 3D (SolidWorks)</p>
-	    <p>Gestion de base de données (SQL)</p>
-	    <p>Testing & Quality Assurance</p>
+                <h3>Technique</h3>
+                <p>VR/AR Development</p>
+                <p>UX/UI Design</p>
+                <p>Analyse Sensorielle</p>
+                <p>C++ (VS Code)</p>
+                <p>C# (Unity)</p>
+                <p>HTML/CSS/JavaScript</p>
+                <p>Électronique</p>
+                <p>CAO/Modélisation 3D (SolidWorks)</p>
+                <p>Gestion de base de données (SQL)</p>
+                <p>Testing & Quality Assurance</p>
             </div>
             <div class="competence-card">
                 <h3>Langues</h3>
@@ -394,45 +374,39 @@
             </div>
         </div>
     </section>
-	
-		
-	<section id="projets" class="section">
-		<h2>Projets</h2>
-		<div class="competences">
-			 <a href="projets/SiteReveil/index.html" target="_blank" class="competence-card">
-				<h3>Site Reveil</h3>
-				<p>Développement d'une interface homme-machine (IHM) pour une horloge intelligente dans le but de travailler l'IU</p>
-			</a>
-			 <a href="https://yuroo1.github.io/" target="_blank" class="competence-card">
-				<h3>Robot roulant</h3>
-				<p>Conception et programmation d'un robot capable d'éviter les obstacles grâce à des capteurs de contact et/ou à ultrasons, avec du code en C++.</p>
-		     </a>
-			<div class="competence-card">
-				<h3>Cryptanalyse</h3>
-				<p>Implémentation en C++ d'une cryptanalyse d'un système de chiffrement par permutation.</p>
-			</div>
-			<div class="competence-card" onclick="openModal('modalMenuIHM')">
-				<h3>Application de gestion de menu</h3>
-				<p>Développement d'une application en C# pour gérer un menu IHM connecté à une base de données.</p>
-			</div>
-		</div>
-	</section>
-<!-- Modale avec iframe pour afficher le projet local -->
-<div id="modalSiteReveil" class="modal">
-    <div class="modal-content">
-        <span class="close" onclick="closeModal('modalSiteReveil')">&times;</span>
-        <iframe src="projets/SiteReveil/index.html" class="iframe-projet"></iframe>
-    </div>
-</div>
 
+    <section id="projets" class="section">
+        <h2>Projets</h2>
+        <div class="competences">
+            <div class="competence-card clickable">
+                <a href="projets/SiteReveil/index.html" target="_blank">
+                    <h3>Site Reveil</h3>
+                    <p>Développement d'une interface homme-machine (IHM) pour une horloge intelligente dans le but de travailler l'IU</p>
+                </a>
+            </div>
+            <div class="competence-card clickable">
+                <a href="https://yuroo1.github.io/" target="_blank">
+                    <h3>Robot roulant</h3>
+                    <p>Conception et programmation d'un robot capable d'éviter les obstacles grâce à des capteurs de contact et/ou à ultrasons, avec du code en C++.</p>
+                </a>
+            </div>
+            <div class="competence-card">
+                <h3>Cryptanalyse</h3>
+                <p>Implémentation en C++ d'une cryptanalyse d'un système de chiffrement par permutation.</p>
+            </div>
+            <div class="competence-card clickable" onclick="openModal('modalMenuIHM')">
+                <h3>Application de gestion de menu</h3>
+                <p>Développement d'une application en C# pour gérer un menu IHM connecté à une base de données.</p>
+            </div>
+        </div>
+    </section>
 
-	
-<section id="experience" class="section">
-    <h2>Expérience</h2>
-    <div class="competences">
-        <div class="competence-card">
-            <h3>FOCAL</h3>
-            <p>Assistant ingénieur - 10 semaines (04/2024 - 06/2024)</p>
+    <section id="experience" class="section">
+        <h2>Expérience</h2>
+        <div class="competences">
+            <div class="competence-card">
+                <h3>FOCAL</h3>
+                <p>Assistant ingénieur - 10 semaines (04/2024 - 06/2024)</p>
             <p>Réorganisation des flux de production</p>
             <p>Restructuration des postes électroniques</p>
             <p>Réalisation tests Qualité</p>
