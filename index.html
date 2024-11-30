@@ -746,16 +746,18 @@
                 <a href="CV.pdf" download class="btn-video">
                     Télécharger mon CV
                 </a>
-            </div>
-            <form class="contact-form">
-                <h3>Me contacter</h3>
-                <input type="text" placeholder="Nom" required>
-                <input type="email" placeholder="Email" required>
-                <input type="text" placeholder="Sujet">
-                <textarea placeholder="Votre message" required></textarea>
-                <button type="submit" class="btn-video">Envoyer</button>
-            </form>
-        </div>
+			</div>
+				<form class="contact-form" action="https://formspree.io/f/xqakggov" method="POST">
+					<h3>Me contacter</h3>
+					
+					<input type="text" name="name" placeholder="Nom" required>
+					<input type="email" name="email" placeholder="Email" required>
+					<input type="text" name="subject" placeholder="Sujet">
+					<textarea name="message" placeholder="Votre message" required></textarea>
+					
+					<button type="submit" class="btn-video">Envoyer</button>
+				</form>
+		</div>
     </section>
 
     <script>
