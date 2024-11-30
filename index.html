@@ -162,7 +162,37 @@
             font-size: 1.2rem;
             margin-bottom: 0.5rem;
         }
+		.skill-item {
+			margin-bottom: 1.5rem;
+		}
 
+		.skill-item h4 {
+			color: var(--primary);
+			font-size: 1.2rem;
+			margin-bottom: 0.5rem;
+		}
+
+		.skill-item p {
+			color: var(--text-secondary);
+			font-size: 1rem;
+			line-height: 1.6;
+			margin-bottom: 0.5rem;
+		}
+
+		/* Ajustement pour mobile */
+		@media (max-width: 768px) {
+			.skill-item {
+				margin-bottom: 1rem;
+			}
+			
+			.skill-item h4 {
+				font-size: 1.1rem;
+			}
+			
+			.skill-item p {
+				font-size: 0.9rem;
+			}
+		}
         .floating-nav {
             position: fixed;
             top: 20px;
@@ -242,6 +272,7 @@
 			margin-top: 2rem;  /* Augmente l'espace au-dessus du bouton */
 			align-self: flex-start;
 			display: flex;
+			color: #333333;
 			align-items: center;
 			justify-content: center;
 			min-height: 2.5rem;
@@ -396,6 +427,94 @@
                 transform: translate(-50%, -50%) rotate(360deg);
             }
         }
+		.skill-item {
+    margin-bottom: 1rem;
+    border-radius: 8px;
+    overflow: hidden;
+    background: rgba(255, 255, 255, 0.05);
+}
+
+		.skill-header {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			padding: 1rem;
+			cursor: pointer;
+			transition: all 0.3s ease;
+		}
+
+		.skill-header:hover {
+			background: rgba(0, 255, 136, 0.1);
+		}
+
+		.skill-header h4 {
+			color: var(--primary);
+			font-size: 1.2rem;
+			margin: 0;
+		}
+
+		.expand-icon {
+			color: var(--primary);
+			font-size: 1.5rem;
+			transition: transform 0.3s ease;
+		}
+
+		.skill-details {
+			max-height: 0;
+			overflow: hidden;
+			transition: max-height 0.3s ease-out;
+			padding: 0 1rem;
+		}
+
+		.skill-item.active .skill-details {
+			max-height: 300px;
+			padding: 1rem;
+		}
+
+		.skill-item.active .expand-icon {
+			transform: rotate(45deg);
+		}
+
+		.skill-details p {
+			color: var(--text-secondary);
+			font-size: 1rem;
+			line-height: 1.6;
+			margin: 0;
+		}
+		
+		.language-item {
+    margin-bottom: 1.5rem;
+}
+
+		.language-header {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			margin-bottom: 0.5rem;
+			color: var(--text-secondary);
+			font-size: 1.2rem;
+		}
+
+		.language-level {
+			color: var(--primary);
+			font-weight: 500;
+		}
+
+		.progress-bar {
+			width: 100%;
+			height: 6px;
+			background: rgba(255, 255, 255, 0.1);
+			border-radius: 3px;
+			overflow: hidden;
+		}
+
+		.progress {
+			height: 100%;
+			background: linear-gradient(90deg, var(--primary), var(--accent));
+			border-radius: 3px;
+			transition: width 0.3s ease;
+		}
+		
     </style>
 </head>
 <body>
@@ -474,18 +593,92 @@
                 <p>Gestion de base de données (SQL)</p>
                 <p>Testing & Quality Assurance</p>
             </div>
-            <div class="competence-card">
-                <h3>Langues</h3>
-                <p>Français - Natif</p>
-                <p>Anglais - B2</p>
-                <p>Espagnol - A2</p>
-            </div>
-            <div class="competence-card">
-                <h3>Soft Skills</h3>
-                <p>Communication</p>
-                <p>Travail d'équipe</p>
-                <p>Gestion du stress</p>
-            </div>
+
+
+		<div class="competence-card">
+			<h3>Langues</h3>
+			
+			<div class="language-item">
+				<div class="language-header">
+					<span>Français</span>
+					<span class="language-level">Natif</span>
+				</div>
+				<div class="progress-bar">
+					<div class="progress" style="width: 100%"></div>
+				</div>
+			</div>
+
+			<div class="language-item">
+				<div class="language-header">
+					<span>Anglais</span>
+					<span class="language-level">B2</span>
+				</div>
+				<div class="progress-bar">
+					<div class="progress" style="width: 80%"></div>
+				</div>
+			</div>
+
+			<div class="language-item">
+				<div class="language-header">
+					<span>Espagnol</span>
+					<span class="language-level">A2</span>
+				</div>
+				<div class="progress-bar">
+					<div class="progress" style="width: 40%"></div>
+				</div>
+			</div>
+		</div>
+
+
+
+
+		<div class="competence-card">
+			<h3>Soft Skills</h3>
+			
+			<div class="skill-item">
+				<div class="skill-header">
+					<b>Travail d'équipe</b>
+					<span class="expand-icon">+</span>
+				</div>
+				<div class="skill-details">
+					<p>Expérience approfondie du travail collaboratif à travers de nombreux projets académiques. Finaliste du Challenge LOW tech et frugalité 2024, démontrant une capacité à contribuer efficacement au sein d'une équipe pluridisciplinaire sur des projets innovants et durables.</p>
+				</div>
+			</div>
+
+			<div class="skill-item">
+				<div class="skill-header">
+					<b>Management & Gestion d'équipe</b>
+					<span class="expand-icon">+</span>
+				</div>
+				<div class="skill-details">
+					<p>En tant que président du club gaming de l'école, direction d'une équipe de 15 personnes. Gestion de projets variés allant de l'organisation de compétitions à la réalisation d'une borne d'arcade. Développement de compétences en leadership, délégation et coordination d'équipe.</p>
+				</div>
+			</div>
+
+			<div class="skill-item">
+				<div class="skill-header">
+					<b>Communication</b>
+					<span class="expand-icon">+</span>
+				</div>
+				<div class="skill-details">
+					<p>Communication efficace développée à travers la gestion du club et la présentation de projets académiques. Capacité à adapter mon discours selon les interlocuteurs et les contextes.</p>
+				</div>
+			</div>
+
+			<div class="skill-item">
+				<div class="skill-header">
+					<b>Gestion du stress</b>
+					<span class="expand-icon">+</span>
+				</div>
+				<div class="skill-details">
+					<p>Expérience dans la gestion d'événements et de projets à deadline, notamment lors des compétitions du club gaming et des projets académiques.</p>
+				</div>
+			</div>
+		</div>
+
+			
+			
+
         </div>
     </section>
 
@@ -716,6 +909,28 @@
                 }
             });
         });
+		
+		
+document.addEventListener('DOMContentLoaded', function() {
+    // Gestion des compétences expansibles
+    const skillItems = document.querySelectorAll('.skill-item');
+    
+    skillItems.forEach(item => {
+        const header = item.querySelector('.skill-header');
+        
+        header.addEventListener('click', () => {
+            // Ferme tous les autres éléments
+            skillItems.forEach(otherItem => {
+                if (otherItem !== item) {
+                    otherItem.classList.remove('active');
+                }
+            });
+            
+            // Toggle l'élément actuel
+            item.classList.toggle('active');
+        });
+    });
+});
     </script>
 </body>
 </html>
