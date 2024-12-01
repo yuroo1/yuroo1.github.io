@@ -281,16 +281,10 @@
 			max-height: 50px;  /* Limite la hauteur maximale */
 		}
 
-
-		.contact-info .btn-video::before {
-			content: '';
-			position: absolute;
-			top: -1rem;
-			left: 0;
-			width: 100%;
-			height: 1px;
-			background: rgba(255, 255, 255, 0.1);
+		#contact h3 {
+		  color: #00FF7F;
 		}
+
         .btn-video {
             padding: 0.8rem 1.5rem;
             color: #333333;
@@ -518,8 +512,11 @@
     </style>
 </head>
 <body>
+
     <div class="particles" id="particles"></div>
-    
+    <div id="google_translate_element" style="position: fixed; top: 20px; right: 20px; z-index: 1000;"></div>
+
+
     <div class="burger-menu">
         <div></div>
         <div></div>
@@ -528,10 +525,10 @@
 
     <nav class="floating-nav">
         <a href="#accueil">Accueil</a>
-        <a href="#formation">Formation</a>
+        <a href="#formation">Formations</a>
         <a href="#competences">Compétences</a>
         <a href="#projets">Projets</a>
-        <a href="#experience">Expérience</a>
+        <a href="#experience">Expériences</a>
         <a href="#contact">Contact</a>
     </nav>
 
@@ -541,15 +538,11 @@
             <p>Ingénieur en Génie Sensoriel</p>
             <p>Central Lyon - ENISE</p>
         </div>
-        <div class="scroll-indicator">
-            <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M12 5v14M19 12l-7 7-7-7"/>
-            </svg>
-        </div>
+
     </section>
 
     <section id="formation" class="section">
-        <h2>Formation</h2>
+        <h2>Formations</h2>
         <div class="competences">
             <div class="competence-card clickable">
                 <a href="https://enise.ec-lyon.fr/formation/ingenieur-genie-sensoriel-389" target="_blank">
@@ -581,7 +574,7 @@
         <h2>Compétences</h2>
         <div class="competences">
             <div class="competence-card">
-                <h3>Technique</h3>
+                <h3>Techniques</h3>
                 <p>VR/AR Development</p>
                 <p>UX/UI Design</p>
                 <p>Analyse Sensorielle</p>
@@ -614,7 +607,7 @@
 					<span class="language-level">B2</span>
 				</div>
 				<div class="progress-bar">
-					<div class="progress" style="width: 80%"></div>
+					<div class="progress" style="width: 60%"></div>
 				</div>
 			</div>
 
@@ -624,7 +617,7 @@
 					<span class="language-level">A2</span>
 				</div>
 				<div class="progress-bar">
-					<div class="progress" style="width: 40%"></div>
+					<div class="progress" style="width: 30%"></div>
 				</div>
 			</div>
 		</div>
@@ -671,7 +664,7 @@
 					<span class="expand-icon">+</span>
 				</div>
 				<div class="skill-details">
-					<p>Expérience dans la gestion d'événements et de projets à deadline, notamment lors des compétitions du club gaming et des projets académiques.</p>
+					<p>Expérience dans la gestion d'événements et de projets à deadline, notamment lors des compétitions du club gaming et des projets académiques. Titulaire du PSC1, je suis formé pour garder mon sang-froid et prendre des décisions rapides et appropriées dans des situations d'urgence, démontrant ma capacité à rester efficace sous pression.</p>
 				</div>
 			</div>
 		</div>
@@ -709,22 +702,29 @@
     </section>
 
     <section id="experience" class="section">
-        <h2>Expérience</h2>
+        <h2>Expériences</h2>
         <div class="competences">
-            <div class="competence-card">
+			<div class="competence-card clickable">
+            <a href="https://www.focal.com/fr" target="_blank">
                 <h3>FOCAL</h3>
                 <p>Assistant ingénieur - 10 semaines (04/2024 - 06/2024)</p>
                 <p>Réorganisation des flux de production</p>
                 <p>Restructuration des postes électroniques</p>
                 <p>Réalisation tests Qualité</p>
+			</a>
             </div>
-            <div class="competence-card">
-                <h3>TIVA ENERGIE</h3>
-                <p>Stage ouvrier (07/2021 - 08/2021)</p>
-                <p>Diagnostic et réparation cartes électroniques</p>
-                <p>Soudure de précision sur cartes BMS</p>
-                <p>Analyse des schémas électroniques BMS</p>
+			
+			
+			<div class="competence-card clickable">
+                <a href="https://tyva-energie.com/fr/" target="_blank">
+                    <h3>TIVA ENERGIE</h3>
+					<p>Stage ouvrier (07/2021 - 08/2021)</p>
+					<p>Diagnostic et réparation cartes électroniques</p>
+					<p>Soudure de précision sur cartes BMS</p>
+					<p>Analyse des schémas électroniques BMS</p>
+                </a>
             </div>
+
         </div>
     </section>
 
@@ -933,6 +933,16 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 });
+
+function googleTranslateElementInit() {
+    new google.translate.TranslateElement({
+        pageLanguage: 'fr',
+        includedLanguages: 'en,es,de,zh-CN,ja,ko,ru', // Langues supportées
+        layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+        autoDisplay: false
+    }, 'google_translate_element');
+}
+
     </script>
 </body>
 </html>
