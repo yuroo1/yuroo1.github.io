@@ -119,7 +119,6 @@
         }
 
         .competence-card.clickable::after {
-            content: '→';
             position: absolute;
             top: 1rem;
             right: 1rem;
@@ -231,14 +230,34 @@
             justify-content: center;
         }
 
-        .modal-content {
-            background-color: var(--surface);
-            width: 90%;
-            max-width: 800px;
-            position: relative;
-            border-radius: 15px;
-            padding: 1rem;
-        }
+		.modal-content {
+			background-color: var(--surface);
+			width: 90%;
+			max-width: 800px;
+			max-height: 90vh;
+			position: relative;
+			border-radius: 15px;
+			padding: 1rem;
+			overflow: hidden;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+		}
+
+		/* Style par défaut pour les vidéos normales */
+		.iframe-projet {
+			width: 100%;
+			aspect-ratio: 16/9;
+			border: none;
+			border-radius: 10px;
+		}
+
+		/* Style spécifique pour les Shorts */
+		.iframe-projet.short-video {
+			width: auto;
+			height: 80vh;
+			aspect-ratio: 9/16;
+		}
 
         .close {
             position: absolute;
@@ -250,13 +269,7 @@
             z-index: 1001;
         }
 
-        .iframe-projet {
-            width: 100%;
-            aspect-ratio: 16/9;
-            border: none;
-            border-radius: 10px;
-            display: block;
-        }
+
 		/* Style pour le conteneur des coordonnées */
 		.contact-info {
 			display: flex;
@@ -684,11 +697,9 @@
                     <p>Développement d'une interface homme-machine (IHM) pour une horloge intelligente dans le but de travailler l'IU</p>
                 </a>
             </div>
-            <div class="competence-card clickable">
-                <a href="https://yuroo1.github.io/" target="_blank">
+            <div class="competence-card clickable" onclick="openModal('modalVideoGenieSensoriel', 'V7mgByefclM')">
                     <h3>Robot roulant</h3>
-                    <p>Conception et programmation d'un robot capable d'éviter les obstacles grâce à des capteurs de contact et/ou à ultrasons, avec du code en C++.</p>
-                </a>
+                    <p>Conception et programmation d'un robot capable d'éviter les obstacles grâce à des capteurs de contact et/ou à ultrasons, avec du code en C++.</p> 
             </div>
             <div class="competence-card">
                 <h3>Cryptanalyse</h3>
@@ -862,20 +873,25 @@
         });
 
         // Gestion des modales
-        function openModal(modalId) {
-            const modal = document.getElementById(modalId);
-            if (modalId === 'modalVideoGenieSensoriel') {
-                const modalContent = modal.querySelector('.modal-content');
-                if (!modalContent.querySelector('iframe')) {
-                    const iframe = document.createElement('iframe');
-                    iframe.className = 'iframe-projet';
-                    iframe.src = "https://www.youtube.com/embed/CFfFvVUl1yg?si=Ga4_l-G6AMpKyejm";
-                    iframe.allowFullscreen = true;
-                    modalContent.appendChild(iframe);
-                }
-            }
-            modal.style.display = "flex";
-        }
+		function openModal(modalId, videoId = 'CFfFvVUl1yg') {
+			const modal = document.getElementById(modalId);
+			const modalContent = modal.querySelector('.modal-content');
+			if (!modalContent.querySelector('iframe')) {
+				const iframe = document.createElement('iframe');
+				iframe.src = `https://www.youtube.com/embed/${videoId}`;
+				
+				// Ajouter la classe appropriée en fonction du type de vidéo
+				if (videoId === 'V7mgByefclM') {
+					iframe.className = 'iframe-projet short-video';
+				} else {
+					iframe.className = 'iframe-projet';
+				}
+				
+				iframe.allowFullscreen = true;
+				modalContent.appendChild(iframe);
+			}
+			modal.style.display = "flex";
+		}
 
         function closeModal(modalId) {
             const modal = document.getElementById(modalId);
