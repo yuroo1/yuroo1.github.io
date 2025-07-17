@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -237,7 +238,7 @@
 			max-height: 90vh;
 			position: relative;
 			border-radius: 15px;
-			padding: 1rem;
+			padding: 0;
 			overflow: hidden;
 			display: flex;
 			justify-content: center;
@@ -261,8 +262,8 @@
 
         .close {
             position: absolute;
-            top: -30px;
-            right: -30px;
+            top: 15px;
+            right: 15px;
             font-size: 2rem;
             color: white;
             cursor: pointer;
@@ -522,6 +523,172 @@
 			transition: width 0.3s ease;
 		}
 		
+    
+/* CSS for the project modal */
+.project-details-container {
+    width: 100%;
+    height: 100%;
+    overflow-y: auto;
+    padding: 2rem;
+    color: var(--text-secondary);
+}
+
+.project-details-container h3 {
+    color: var(--primary);
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    text-align: center;
+}
+.project-details-container h4 {
+    color: var(--primary);
+    font-size: 1.5rem;
+    margin-top: 1.5rem;
+    margin-bottom: 0.5rem;
+}
+.project-details-container p, .project-details-container li {
+    font-size: 1.1rem;
+    line-height: 1.7;
+}
+
+.tab-buttons {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    flex-wrap: wrap;
+}
+
+.tab-btn {
+    padding: 0.8rem 1rem;
+    cursor: pointer;
+    background: none;
+    border: none;
+    color: var(--text-secondary);
+    font-size: 1rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    border-bottom: 3px solid transparent;
+}
+
+.tab-btn:hover {
+    color: var(--primary);
+}
+
+.tab-btn.active {
+    color: var(--primary);
+    border-bottom: 3px solid var(--primary);
+}
+
+.tab-content {
+    display: none;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.tab-content.active {
+    display: block;
+    animation: fadeIn 0.5s;
+}
+
+.tab-content img {
+    max-width: 100%;
+    border-radius: 10px;
+    margin-top: 1rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.content-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    align-items: flex-start;
+    margin-top: 1rem;
+}
+
+.content-grid img {
+    margin-top: 0;
+}
+.content-grid ul {
+    list-style-position: inside;
+    padding-left: 0;
+}
+
+
+/* Carousel Styles */
+.carousel-container {
+    position: relative;
+    width: 100%;
+    max-width: 600px;
+    margin: 1rem auto;
+    overflow: hidden;
+    border-radius: 10px;
+}
+
+.carousel-slide {
+    display: none;
+}
+
+.carousel-slide.active {
+    display: block;
+}
+
+.carousel-slide img {
+    width: 100%;
+    height: auto;
+    display: block;
+    margin-top:0;
+}
+
+.carousel-prev, .carousel-next {
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    width: auto;
+    padding: 16px;
+    margin-top: -22px;
+    color: white;
+    font-weight: bold;
+    font-size: 24px;
+    transition: 0.6s ease;
+    border-radius: 0 3px 3px 0;
+    user-select: none;
+    background-color: rgba(0,0,0,0.5);
+}
+
+.carousel-next {
+    right: 0;
+    border-radius: 3px 0 0 3px;
+}
+
+.carousel-prev:hover, .carousel-next:hover {
+    background-color: rgba(0, 255, 136, 0.8);
+}
+
+.carousel-indicators {
+    text-align: center;
+    padding-top: 10px;
+}
+
+.indicator {
+    cursor: pointer;
+    height: 15px;
+    width: 15px;
+    margin: 0 2px;
+    background-color: #bbb;
+    border-radius: 50%;
+    display: inline-block;
+    transition: background-color 0.6s ease;
+}
+
+.indicator.active, .indicator:hover {
+    background-color: var(--primary);
+}
+
+@keyframes fadeIn {
+    from {opacity: .4}
+    to {opacity: 1}
+}
+
     </style>
 </head>
 <body>
@@ -784,6 +951,112 @@
 		</div>
     </section>
 
+    
+    <!-- Modal pour le projet Raquette de Ping-Pong -->
+    <div id="modalRaquettePingPong" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('modalRaquettePingPong')">&times;</span>
+            <div class="project-details-container">
+                <h3>Raquette de Ping-Pong Modulaire</h3>
+
+                <div class="tab-buttons">
+                    <button class="tab-btn active" onclick="showTab('overview')">Présentation</button>
+                    <button class="tab-btn" onclick="showTab('cad-3d')">Conception & Fabrication</button>
+                    <button class="tab-btn" onclick="showTab('unity-dev')">Développement Unity</button>
+                    <button class="tab-btn" onclick="showTab('gallery')">Galerie</button>
+                </div>
+
+                <!-- Tab Content -->
+                <div id="overview" class="tab-content active">
+                    <h4>Un projet complet alliant le matériel et le logiciel</h4>
+                    <p>
+                        Ce projet réalisé en groupe a consisté à développer une expérience de ping-pong virtuelle complète, avec une raquette physique modulable. L'objectif était de pouvoir interchanger facilement les revêtements de la raquette physique, ce qui se reflétait en temps réel dans la simulation Unity par une modification des propriétés de jeu.
+                    </p>
+                    <img src="input_file_3.jpeg" alt="Scène Unity du projet ping-pong">
+                    <p>
+                        La simulation gère la physique de la balle, les collisions, le score et les différents comportements de la raquette selon le revêtement "équipé". Ce projet a permis de mettre en application des compétences variées, de la conception mécanique à la programmation C# en passant par la gestion de projet.
+                    </p>
+                </div>
+
+                <div id="cad-3d" class="tab-content">
+                    <h4>De l'idée à l'objet : CAO et Impression 3D</h4>
+                    <p>
+                        La conception de la raquette a été réalisée sur SolidWorks. L'un des principaux défis était de concevoir un système d'attache à la fois simple, rapide et suffisamment solide pour les revêtements. Nous avons opté pour un système de glissière avec un ajustement serré pour garantir un bon maintien.
+                    </p>
+                    <div class="content-grid">
+                        <div>
+                            <p>Le système de fixation a été conçu avec une tolérance précise pour assurer un assemblage parfait.</p>
+                            <img src="input_file_4.jpeg" alt="Détail CAO du système de fixation">
+                        </div>
+                        <div>
+                            <p>Les différentes parties de la raquette ont ensuite été préparées pour l'impression 3D, avec des paramètres spécifiques pour chaque pièce afin d'optimiser la solidité et le poids.</p>
+                            <ul>
+                                <li><strong>Revêtement :</strong> Remplissage faible (15% Gyroïde) pour la légèreté.</li>
+                                <li><strong>Manche :</strong> Remplissage plus élevé (50% Nid d'abeille 3D) pour la rigidité et la prise en main.</li>
+                            </ul>
+                        </div>
+                    </div>
+                     <div class="content-grid">
+                        <img src="input_file_6.jpeg" alt="Paramètres d'impression 3D du revêtement">
+                        <img src="input_file_5.jpeg" alt="Paramètres d'impression 3D du manche">
+                    </div>
+                </div>
+
+                <div id="unity-dev" class="tab-content">
+                    <h4>Donner vie au projet dans Unity</h4>
+                    <p>
+                        Le cœur de la simulation a été développé avec le moteur de jeu Unity et en langage C#. L'organisation du projet a été primordiale pour gérer les différents aspects du jeu.
+                    </p>
+                    <div class="content-grid">
+                        <div>
+                            <h5>Organisation des Assets</h5>
+                            <p>Création de modèles 3D, de matériaux et de revêtements variés, chacun avec ses propres caractéristiques visuelles.</p>
+                            <img src="input_file_0.jpeg" alt="Assets du projet dans Unity">
+                        </div>
+                        <div>
+                            <h5>Scripts C#</h5>
+                            <p>Développement de plusieurs scripts pour gérer la logique du jeu : contrôle de la raquette, physique de la balle, customisation, score, etc.</p>
+                             <img src="input_file_1.jpeg" alt="Scripts C# du projet">
+                        </div>
+                         <div>
+                            <h5>Physique du jeu</h5>
+                            <p>Un réglage précis des matériaux physiques a été nécessaire pour obtenir un comportement de balle réaliste, notamment le rebond ("Bounciness").</p>
+                             <img src="input_file_2.jpeg" alt="Réglage du matériau physique de la balle">
+                        </div>
+                    </div>
+                </div>
+                
+                <div id="gallery" class="tab-content">
+                    <div class="carousel-container">
+                        <!-- Carousel Slides -->
+                        <div class="carousel-slide active"><img src="input_file_3.jpeg" alt="Scène Unity"></div>
+                        <div class="carousel-slide"><img src="input_file_4.jpeg" alt="Détail CAO"></div>
+                        <div class="carousel-slide"><img src="input_file_6.jpeg" alt="Impression 3D Revêtement"></div>
+                        <div class="carousel-slide"><img src="input_file_5.jpeg" alt="Impression 3D Manche"></div>
+                        <div class="carousel-slide"><img src="input_file_0.jpeg" alt="Assets Unity"></div>
+                        <div class="carousel-slide"><img src="input_file_1.jpeg" alt="Scripts C# Unity"></div>
+                        <div class="carousel-slide"><img src="input_file_2.jpeg" alt="Physique Unity"></div>
+
+                        <!-- Navigation Buttons -->
+                        <a class="carousel-prev" onclick="changeSlide(-1)">&#10094;</a>
+                        <a class="carousel-next" onclick="changeSlide(1)">&#10095;</a>
+                    </div>
+                    
+                    <!-- Indicators -->
+                    <div class="carousel-indicators">
+                        <span class="indicator active" onclick="currentSlide(1)"></span>
+                        <span class="indicator" onclick="currentSlide(2)"></span>
+                        <span class="indicator" onclick="currentSlide(3)"></span>
+                        <span class="indicator" onclick="currentSlide(4)"></span>
+                        <span class="indicator" onclick="currentSlide(5)"></span>
+                        <span class="indicator" onclick="currentSlide(6)"></span>
+                        <span class="indicator" onclick="currentSlide(7)"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script>
         const canvas = document.createElement('canvas');
         const ctx = canvas.getContext('2d');
@@ -925,7 +1198,7 @@ function showTab(tabName) {
 
 // Gestion du carrousel
 let currentSlideIndex = 0;
-const totalSlides = 6;
+const totalSlides = 7;
 
 function changeSlide(direction) {
     currentSlideIndex += direction;
