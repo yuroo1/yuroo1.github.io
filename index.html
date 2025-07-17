@@ -885,43 +885,188 @@
             });
         });
 
-        // Gestion des modales
-		function openModal(modalId, videoId = 'CFfFvVUl1yg') {
-			const modal = document.getElementById(modalId);
-			const modalContent = modal.querySelector('.modal-content');
-			if (!modalContent.querySelector('iframe')) {
-				const iframe = document.createElement('iframe');
-				iframe.src = `https://www.youtube.com/embed/${videoId}`;
-				
-				// Ajouter la classe appropriée en fonction du type de vidéo
-				if (videoId === 'V7mgByefclM') {
-					iframe.className = 'iframe-projet short-video';
-				} else {
-					iframe.className = 'iframe-projet';
-				}
-				
-				iframe.allowFullscreen = true;
-				modalContent.appendChild(iframe);
-			}
-			modal.style.display = "flex";
-		}
+        // Gestion des onglets du projet
+function showTab(tabName) {
+    // Masquer tous les contenus avec animation
+    const tabContents = document.querySelectorAll('.tab-content');
+    tabContents.forEach(content => {
+        content.style.opacity = '0';
+        setTimeout(() => {
+            content.classList.remove('active');
+        }, 150);
+    });
+    
+    // Désactiver tous les boutons
+    const tabBtns = document.querySelectorAll('.tab-btn');
+    tabBtns.forEach(btn => {
+        btn.classList.remove('active');
+    });
+    
+    // Afficher le contenu sélectionné avec animation
+    setTimeout(() => {
+        document.getElementById(tabName).classList.add('active');
+        setTimeout(() => {
+            document.getElementById(tabName).style.opacity = '1';
+        }, 50);
+    }, 150);
+    
+    // Activer le bouton correspondant
+    event.target.classList.add('active');
+    
+    // Si on ouvre l'onglet galerie, redémarrer l'auto-play
+    if (tabName === 'gallery') {
+        setTimeout(() => {
+            startAutoPlay();
+        }, 300);
+    } else {
+        stopAutoPlay();
+    }
+}
 
-        function closeModal(modalId) {
-            const modal = document.getElementById(modalId);
-            modal.style.display = "none";
-            if (modalId === 'modalVideoGenieSensoriel') {
-                const iframe = modal.querySelector('iframe');
-                if (iframe) iframe.remove();
+// Gestion du carrousel
+let currentSlideIndex = 0;
+const totalSlides = 6;
+
+function changeSlide(direction) {
+    currentSlideIndex += direction;
+    
+    if (currentSlideIndex >= totalSlides) {
+        currentSlideIndex = 0;
+    } else if (currentSlideIndex < 0) {
+        currentSlideIndex = totalSlides - 1;
+    }
+    
+    showSlide(currentSlideIndex);
+}
+
+function currentSlide(index) {
+    currentSlideIndex = index - 1;
+    showSlide(currentSlideIndex);
+}
+
+function showSlide(index) {
+    const slides = document.querySelectorAll('.carousel-slide');
+    const indicators = document.querySelectorAll('.indicator');
+    
+    slides.forEach((slide, i) => {
+        slide.classList.toggle('active', i === index);
+    });
+    
+    indicators.forEach((indicator, i) => {
+        indicator.classList.toggle('active', i === index);
+    });
+}
+
+// Auto-play du carrousel
+let autoPlayInterval;
+
+function startAutoPlay() {
+    autoPlayInterval = setInterval(() => {
+        changeSlide(1);
+    }, 5000);
+}
+
+function stopAutoPlay() {
+    clearInterval(autoPlayInterval);
+}
+
+// Modification de la fonction openModal pour gérer la raquette
+function openModal(modalId, videoId = 'CFfFvVUl1yg') {
+    if (modalId === 'modalRaquettePingPong') {
+        const modal = document.getElementById(modalId);
+        modal.style.display = "flex";
+        // Démarrer l'auto-play du carrousel
+        setTimeout(() => {
+            startAutoPlay();
+        }, 500);
+        return;
+    }
+    
+    const modal = document.getElementById(modalId);
+    const modalContent = modal.querySelector('.modal-content');
+    if (!modalContent.querySelector('iframe')) {
+        const iframe = document.createElement('iframe');
+        iframe.src = `https://www.youtube.com/embed/${videoId}`;
+        
+        // Ajouter la classe appropriée en fonction du type de vidéo
+        if (videoId === 'V7mgByefclM') {
+            iframe.className = 'iframe-projet short-video';
+        } else {
+            iframe.className = 'iframe-projet';
+        }
+        
+        iframe.allowFullscreen = true;
+        modalContent.appendChild(iframe);
+    }
+    modal.style.display = "flex";
+}
+
+// Modification de la fonction closeModal pour gérer la raquette
+function closeModal(modalId) {
+    const modal = document.getElementById(modalId);
+    modal.style.display = "none";
+    
+    if (modalId === 'modalVideoGenieSensoriel') {
+        const iframe = modal.querySelector('iframe');
+        if (iframe) iframe.remove();
+    }
+    
+    if (modalId === 'modalRaquettePingPong') {
+        stopAutoPlay();
+        // Réinitialiser à la première slide
+        currentSlideIndex = 0;
+        showSlide(0);
+        // Réinitialiser au premier onglet
+        document.querySelectorAll('.tab-content').forEach(content => {
+            content.classList.remove('active');
+        });
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            btn.classList.remove('active');
+        });
+        document.getElementById('overview').classList.add('active');
+        document.querySelector('.tab-btn').classList.add('active');
+    }
+}
+
+// Modification de window.onclick pour gérer la raquette
+window.onclick = function(event) {
+    if (event.target.classList.contains('modal')) {
+        if (event.target.id === 'modalVideoGenieSensoriel') {
+            event.target.style.display = "none";
+            const iframe = event.target.querySelector('iframe');
+            if (iframe) iframe.remove();
+        } else if (event.target.id === 'modalRaquettePingPong') {
+            closeModal('modalRaquettePingPong');
+        }
+    }
+}
+
+// Initialisation et gestion des événements
+document.addEventListener('DOMContentLoaded', function() {
+    // Pause auto-play au hover sur le carrousel
+    const carouselContainer = document.querySelector('.carousel-container');
+    if (carouselContainer) {
+        carouselContainer.addEventListener('mouseenter', stopAutoPlay);
+        carouselContainer.addEventListener('mouseleave', startAutoPlay);
+    }
+    
+    // Gestion des touches pour le carrousel
+    document.addEventListener('keydown', function(e) {
+        const modal = document.getElementById('modalRaquettePingPong');
+        if (modal && modal.style.display === 'flex') {
+            if (e.key === 'ArrowLeft') {
+                e.preventDefault();
+                changeSlide(-1);
+            } else if (e.key === 'ArrowRight') {
+                e.preventDefault();
+                changeSlide(1);
+            } else if (e.key === 'Escape') {
+                e.preventDefault();
+                closeModal('modalRaquettePingPong');
             }
         }
-
-        window.onclick = function(event) {
-            if (event.target.classList.contains('modal')) {
-                event.target.style.display = "none";
-                const iframe = event.target.querySelector('iframe');
-                if (iframe) iframe.remove();
-            }
-        }
+    });
+});
 
         // Gestion du menu burger
         const burgerMenu = document.querySelector('.burger-menu');
