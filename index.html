@@ -217,32 +217,30 @@
             position: relative;
             font-size: 1.1rem;
         }
-
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 1000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.8);
-            align-items: center;
-            justify-content: center;
-        }
-
+		
+		.modal {
+		    display: none;
+		    position: fixed;
+		    z-index: 1000;
+		    left: 0;
+		    top: 0;
+		    width: 100%;
+		    height: 100%;
+		    background-color: rgba(0, 0, 0, 0.8);
+		    overflow-y: auto;
+		    padding: 20px 0;
+		}
+		
 		.modal-content {
-			background-color: var(--surface);
-			width: 90%;
-			max-width: 800px;
-			max-height: 90vh;
-			position: relative;
-			border-radius: 15px;
-			padding: 0;
-			overflow: hidden;
-			display: flex;
-			justify-content: center;
-			align-items: center;
+		    background-color: var(--surface);
+		    width: 90%;
+		    max-width: 800px;
+		    position: relative;
+		    border-radius: 15px;
+		    padding: 0;
+		    margin: 0 auto;
+		    display: block;
+		    min-height: fit-content;
 		}
 
 		/* Style par défaut pour les vidéos normales */
@@ -384,6 +382,33 @@
             .floating-nav.active {
                 display: flex;
             }
+/* Améliorations pour le modal sur mobile */
+.modal {
+    padding: 10px 0;
+}
+
+.modal-content {
+    width: 95%;
+    margin: 10px auto;
+}
+
+.project-details-container {
+    padding: 1rem;
+}
+
+.project-details-container h3 {
+    font-size: 1.5rem;
+}
+
+.tab-buttons {
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.tab-btn {
+    padding: 0.6rem 0.8rem;
+    font-size: 0.9rem;
+}
 
             .burger-menu {
                 display: block;
@@ -1245,9 +1270,12 @@ function stopAutoPlay() {
 
 // Modification de la fonction openModal pour gérer la raquette
 function openModal(modalId, videoId = 'CFfFvVUl1yg') {
+  const modal = document.getElementById(modalId);
+    
     if (modalId === 'modalRaquettePingPong') {
-        const modal = document.getElementById(modalId);
-        modal.style.display = "flex";
+        modal.style.display = "block";
+        // Réinitialiser le scroll en haut
+        modal.scrollTop = 0;
         // Démarrer l'auto-play du carrousel
         setTimeout(() => {
             startAutoPlay();
@@ -1255,7 +1283,6 @@ function openModal(modalId, videoId = 'CFfFvVUl1yg') {
         return;
     }
     
-    const modal = document.getElementById(modalId);
     const modalContent = modal.querySelector('.modal-content');
     if (!modalContent.querySelector('iframe')) {
         const iframe = document.createElement('iframe');
